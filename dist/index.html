@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore estimated student registration, vote counts and turnout in eight Ward 27 divisions."
+    />
+    <title>PLTV Vote Map</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23012d4a'/%3E%3Cpath d='M12 42 23 18l10 14 8-10 11 20z' fill='%23ffd166'/%3E%3Ccircle cx='46' cy='16' r='6' fill='%23f25f5c'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="vendor/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="Map controls">
+        <header class="brand-block">
+          <p class="eyebrow">Penn Leads the Vote</p>
+          <h1>Vote Map</h1>
+        </header>
+
+        <section class="control-group" aria-labelledby="election-heading">
+          <div class="control-heading">
+            <h2 id="election-heading">Election type</h2>
+            <span class="selection-chip" id="election-value">Primary</span>
+          </div>
+          <div class="segmented-control" id="election-options" role="group" aria-label="Election type"></div>
+        </section>
+
+        <section class="control-group" aria-labelledby="year-heading">
+          <div class="control-heading">
+            <h2 id="year-heading">Year</h2>
+            <output class="year-output" id="year-value" for="year-slider">2014</output>
+          </div>
+          <div class="year-timeline">
+            <input id="year-slider" class="year-slider" type="range" step="1" aria-label="Select year" />
+            <div class="year-ticks" id="year-ticks" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <section class="snapshot" aria-live="polite" aria-atomic="true">
+          <p class="snapshot-label">Selected view</p>
+          <p class="snapshot-title" id="snapshot-title"></p>
+          <div class="snapshot-stats">
+            <div>
+              <span id="total-registration">—</span>
+              <small>4 Years Registration</small>
+            </div>
+            <div>
+              <span id="one-year-registration">—</span>
+              <small>1 Year Registration</small>
+            </div>
+            <div>
+              <span id="total-votes">—</span>
+              <small>Vote Count</small>
+            </div>
+            <div>
+              <span id="total-turnout">—</span>
+              <small>Turnout Rate</small>
+            </div>
+          </div>
+        </section>
+        <footer class="source-note">
+          <strong>Data Source: Full Voter Export</strong>
+          <p>Pennsylvania Department of State<br>Statewide Uniform Registry of Electors (SURE) Project</p>
+          <p>Registrants aged 25 or younger, registered within the past 4 years, in the eight mapped divisions.</p>
+        </footer>
+      </aside>
+
+      <section class="maps-panel" aria-label="Interactive Ward 27 division maps">
+        <article class="map-card">
+          <header class="map-header">
+            <h2>Registration Number</h2>
+            <div class="segmented-control window-options" role="group" aria-label="Registration window">
+              <button type="button" class="segment-button" data-window="1" aria-pressed="false">1 year</button>
+              <button type="button" class="segment-button" data-window="4" aria-pressed="true">4 years</button>
+            </div>
+            <p id="registration-subtitle">Registered within the past 4 years</p>
+          </header>
+          <div id="map-registration" class="map-canvas" role="region" aria-label="Registration number map"></div>
+        </article>
+        <article class="map-card">
+          <header class="map-header"><h2>Vote Count</h2></header>
+          <div id="map-votes" class="map-canvas" role="region" aria-label="Vote count map"></div>
+        </article>
+        <article class="map-card">
+          <header class="map-header"><h2>Turnout Rate</h2></header>
+          <div id="map-turnout" class="map-canvas" role="region" aria-label="Turnout rate map"></div>
+        </article>
+        <div class="loading-state" id="loading-state" role="status">Loading map data…</div>
+        <div class="error-state" id="error-state" role="alert" hidden>
+          <strong>The map could not load.</strong>
+          <span>Please confirm that the generated data files are present.</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendor/leaflet.js"></script>
+    <script src="data/map-data.js"></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
